@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Generates an image based on today's temperature log data.
 # Posts image to imgur and then posts to slack.
 # Required args: 1 = imgur client ID (https://apidocs.imgur.com)
@@ -12,11 +13,11 @@ import base64
 import sys
 import numpy as np
 from datetime import datetime
-
+dir = os.path.dirname(os.path.realpath(__file__))
 date = datetime.now().strftime('%d-%m-%Y')
 times = []
 temps = []
-with open(date + '.csv') as csv_file:
+with open(dir + '/data/' + date + '.csv') as csv_file:
     csv_data = csv.reader(csv_file, delimiter=',')
     for row in csv_data:
         if len(row) == 2:

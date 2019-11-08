@@ -17,6 +17,17 @@ There is an assumption that you already have a Slack account if you're reading t
 3. Make a note of the webhook URL.
 
 ### Python dependencies
+```
+pip3 install pyserial
+pip3 install matplotlib
+pip3 install requests
+```
 
 ### Cronjobs
-
+```
+chmod +x log_temperature.py
+chmod +x generate_temperature_report.py
+crontab -e
+0 */0 * * * log_temperature.py >> log_temperature.log 2>&1
+1 */0 * * * generate_temperature_report.py [IMGUR_CLIENT_ID] [SLACK_WEBHOOK_URL] >> generate_temperature_report.log 2>&1
+```
