@@ -24,6 +24,7 @@ with open(dir + '/data/' + date + '.csv') as csv_file:
             times.append(row[0])
             temps.append(round(float(row[1])))
 
+plt.figure(figsize=(24, 8))
 plt.plot(times, temps)
 plt.axhspan(16, 24, facecolor='#2ca02c', alpha=0.1)
 plt.title(date)
@@ -33,6 +34,7 @@ plt.grid(axis='y', linestyle='--')
 plt.yticks([6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40])
 image_filename = date + '.png'
 plt.savefig(image_filename, dpi=200)
+plt.tight_layout()
 # plt.show()
 
 # Read image data and base64 encode image data
