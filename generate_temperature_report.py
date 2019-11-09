@@ -38,16 +38,16 @@ plt.yticks([6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40
 image_filename = date + '.png'
 plt.savefig(image_filename)
 plt.tight_layout()
-plt.show()
+# plt.show()
 
-# # Read image data and base64 encode image data
-# with open(image_filename, 'rb') as image_file:
-#     image_data = base64.b64encode(image_file.read())
+# Read image data and base64 encode image data
+with open(image_filename, 'rb') as image_file:
+    image_data = base64.b64encode(image_file.read())
 
-# # Send image to imgur
-# imgur_response = requests.post('https://api.imgur.com/3/image', data={'image': image_data}, headers={'Authorization': 'Client-ID ' + sys.argv[1]})
-# imgur_link = imgur_response.json()['data']['link']
+# Send image to imgur
+imgur_response = requests.post('https://api.imgur.com/3/image', data={'image': image_data}, headers={'Authorization': 'Client-ID ' + sys.argv[1]})
+imgur_link = imgur_response.json()['data']['link']
 
-# # Send message to slack
-# data = {'attachments': [{'title': date, 'title_link': imgur_link, 'image_url': imgur_link}]}
-# slack_response = requests.post(sys.argv[2], json=data)
+# Send message to slack
+data = {'attachments': [{'title': date, 'title_link': imgur_link, 'image_url': imgur_link}]}
+slack_response = requests.post(sys.argv[2], json=data)
