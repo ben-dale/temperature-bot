@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+# Generates an image based on today's temperature log data.
+# Posts image to imgur and then posts to slack.
+# Required args: 1 = Path to arduino (usually /dev/ttyACM0 or /dev/ttyACM1)
 
 import os
 import time
