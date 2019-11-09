@@ -28,6 +28,6 @@ pip3 install requests
 chmod +x log_temperature.py
 chmod +x generate_temperature_report.py
 crontab -e
-0 */0 * * * log_temperature.py >> log_temperature.log 2>&1
-1 */0 * * * generate_temperature_report.py [IMGUR_CLIENT_ID] [SLACK_WEBHOOK_URL] >> generate_temperature_report.log 2>&1
+0 */1 * * * log_temperature.py >> log_temperature.log 2>&1
+1 */1 * * * generate_temperature_report.py [IMGUR_CLIENT_ID] [SLACK_WEBHOOK_URL] >> generate_temperature_report.log 2>&1
 ```
