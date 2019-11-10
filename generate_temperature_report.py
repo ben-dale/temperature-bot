@@ -26,7 +26,7 @@ with open(dir + '/data/' + date + '.csv') as csv_file:
             times.append(row[0])
             temps.append(float(row[1]))
 
-plt.figure(figsize=(len(temps), 6))
+plt.figure(figsize=(len(temps) if len(temps) > 6 else 6, 6))
 plt.plot(times, temps)
 plt.axhspan(16, 24, facecolor='#2ca02c', alpha=0.1)
 plt.title(sys.argv[3], loc='left', fontsize=14)
