@@ -3,7 +3,7 @@
 ## Setup
 
 ### Arduino
-![schematic](schematic.png)
+TODO
 
 ### Imgur
 Imgur is used to host the image publically online.
