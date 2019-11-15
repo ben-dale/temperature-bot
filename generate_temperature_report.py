@@ -12,19 +12,34 @@ import csv
 import os
 import base64
 import sys
+import itertools
 import numpy as np
 from datetime import datetime
 
 dir = os.path.dirname(os.path.realpath(__file__))
 date = datetime.now().strftime('%d-%m-%Y')
-times = []
-temps = []
+timesWithTemps = []
 with open(dir + '/data/' + date + '.csv') as csv_file:
     csv_data = csv.reader(csv_file, delimiter=',')
     for row in csv_data:
         if len(row) == 2 and row[0] and row[1]:
-            times.append(row[0])
-            temps.append(float(row[1]))
+            timesWithTemps.append((row[0], float(row[1])))
+
+tempsByHours = {timeWithTemp[0].split(':')[0]: [] for timeWithTemp in timesWithTemps}
+for timeWithTemp in timesWithTemps:
+    hour = timeWithTemp[0].split(':')[0]
+    tempsByHours[hour].append(timeWithTemp[1])
+
+averageTempsByHour = {tempByHour: 0 for tempByHour in tempsByHours}
+for hour, temps in tempsByHours.items():
+    average = sum(temps) / len(temps)
+    averageTempsByHour[hour] = average
+
+temps = []
+times = []
+for hour, avgTemp in averageTempsByHour.items():
+    times.append(hour + ':00')
+    temps.append(avgTemp)
 
 plt.figure(figsize=(len(temps) if len(temps) > 6 else 6, 6))
 plt.plot(times, temps)
@@ -36,8 +51,8 @@ plt.xlabel('Time')
 plt.grid(axis='y', linestyle='--')
 plt.yticks([6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40])
 image_filename = date + '.png'
-plt.savefig(image_filename)
 plt.tight_layout()
+plt.savefig(image_filename)
 # plt.show()
 
 # Read image data and base64 encode image data
